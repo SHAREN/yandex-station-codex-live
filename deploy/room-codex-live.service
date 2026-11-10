@@ -1,0 +1,23 @@
+[Unit]
+Description=Yandex Station Codex GPT-Live full duplex via existing CLIProxyAPI OAuth
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/yandex-station-codex-live/bridge
+EnvironmentFile=/etc/yandex-station-codex-live.env
+ExecStart=/opt/yandex-station-codex-live/.venv/bin/python -B /opt/yandex-station-codex-live/bridge/app.py
+Restart=on-failure
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=read-only
+UMask=0077
+MemoryMax=400M
+StandardOutput=journal
+StandardError=journal
+
+[Install]
+WantedBy=multi-user.target

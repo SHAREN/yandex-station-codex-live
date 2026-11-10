@@ -1,0 +1,41 @@
+name: Validate Codex voice integration
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Opus runtime dependency
+        run: sudo apt-get update && sudo apt-get install -y libopus0
+      - name: Syntax and offline contract checks
+        run: |
+          python -m py_compile bridge/*.py ha/*.py tests/test_contract.py
+          python -m unittest discover -s tests -p 'test_contract.py' -v
+      - name: Scan for accidental secrets
+        run: python tools/check_repository_safety.py
+
+  station-go:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: station/go.mod
+          cache-dependency-path: station/go.sum
+      - name: Test station controller
+        working-directory: station
+        run: go test ./...
+      - name: Compile station for ARM64
+        working-directory: station
+        run: GOOS=linux GOARCH=arm64 CGO_ENABLED=0 go build -o /tmp/yandex-lite-codex-agent .

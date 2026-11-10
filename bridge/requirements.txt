@@ -1,0 +1,5 @@
+aiohttp>=3.11,<4
+aiortc>=1.13,<2
+av>=14,<17
+# Python 3.12 only: standard-library audioop is removed in Python 3.13
+# Linux package: libopus0 (ctypes in opus_stream.py)

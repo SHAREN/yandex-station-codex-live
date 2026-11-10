@@ -1,0 +1,16 @@
+# VPS voice bridge connects to the EXISTING Codex OAuth session in CLIProxyAPI.
+# This file is a template, not a secret store. Copy it outside the repository.
+CODEX_PROXY_CALL_URL=http://127.0.0.1:8317/v1/realtime/calls
+CODEX_PROXY_RESPONSES_URL=http://127.0.0.1:8317/v1/responses
+ROOM_GPT_LIVE_PORT=18771
+ROOM_GPT_INPUT_GAIN=32
+ROOM_GPT_RAW_GATE_RMS=3
+ROOM_GPT_DELEGATION_MODE=client
+ROOM_GPT_TERRA_CLIENT=0
+# Station config is placed in the device service environment, NOT on VPS.
+# STATION_CODEX_MODE_URL=http://YOUR_HA_LAN_IP:7872/api/station/lite/codex-mode
+# STATION_CODEX_WS_URL=ws://YOUR_HA_LAN_IP:7861/api/station/lite/live
+# Pipecat secret variables stay in Home Assistant, not in this repository.
+# ROOM_GPT_LIVE_URL=wss://YOUR_DOMAIN/room-gpt-live/ws
+# ROOM_GPT_LIVE_BASIC_USER=<your-nginx-basic-auth-username>
+# ROOM_GPT_LIVE_PASSWORD=<set-externally>
